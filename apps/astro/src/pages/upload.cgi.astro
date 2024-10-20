@@ -1,0 +1,55 @@
+---
+import {} from "astro";
+import { resolve } from "node:path";
+import { createWriteStream, readdirSync } from "node:fs";
+
+if (Astro.request.method === "POST") {
+  const data = await Astro.request.formData();
+  const files = data.getAll("file") as File[];
+
+  for (const file of files) {
+    const name = new Date().getTime() + "-" + file.name;
+    const path = resolve("public", "uploads", name);
+    const reader = file.stream().getReader();
+    const writer = createWriteStream(path);
+    await reader.read().then(({ done, value }) => {
+      if (!done) {
+        writer.write(value);
+      }
+    });
+
+    writer.end();
+    console.log(`File uploaded: ${name}`);
+    return Astro.redirect("/upload.cgi");
+  }
+}
+
+const files = readdirSync("public/uploads");
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>ファイルアップロード</title>
+  </head>
+
+  <body>
+    <h1>ファイルアップロード</h1>
+    <form enctype="multipart/form-data" action="upload.php" method="POST">
+      <input type="file" name="file" />
+    </form><br />
+    <input type="submit" value="Upload" /></body
+  >
+</html>
+
+<ul>
+  {
+    files.map((file) => (
+      <li>
+        <a href={`uploads/${file}`}>{file}</a>
+      </li>
+    ))
+  }
+</ul>
+<p><a href="/">戻る</a></p>

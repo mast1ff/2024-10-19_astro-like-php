@@ -1,0 +1,15 @@
+
+
+> astro-like-php@0.0.1 dev /Users/mast1ff/repos/@playgrounds/2024-10-19_astro-like-php/apps/astro
+> astro dev
+
+
+[31m✘[39m astro v4.16.6 is [31mnot yet supported[39m in the Community edition of [33mConsole Ninja[39m.
+We are working hard on it for you [36mhttps://tinyurl.com/3h9mtwra[39m.
+
+Estimated release dates:
+  - Community users: [36maround 14th January, 2025 [1m(subject to team availability)[22m[39m
+[33m  - PRO users[39m:       [1m[32mpriority access is available now[39m[22m
+
+[33m[1m17:43:50[22m [WARN] [config][39m The adapter @astrojs/node provides experimental support for "astro:env getSecret". You may experience issues or breaking changes until this feature is fully supported by the adapter.
+[2m17:43:50[22m [34m[types][39m Generated [2m0ms[22m

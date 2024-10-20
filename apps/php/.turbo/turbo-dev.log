@@ -1,0 +1,21 @@
+
+
+> php-on-apache@ dev /Users/mast1ff/repos/@playgrounds/2024-10-19_astro-like-php/apps/php
+> docker-compose up
+
+[33mWARN[0m[0000] /Users/mast1ff/repos/@playgrounds/2024-10-19_astro-like-php/apps/php/docker-compose.yaml: `version` is obsolete 
+[1A[1B[0G[?25l[+] Running 1/0
+ [32m✔[0m Container php  [32mRunning[0m                                                                                                                                                  [34m0.0s [0m
+[?25hAttaching to php
+[2KGracefully stopping... (press Ctrl+C again to force)
+[1A[1B[0G[?25l[+] Stopping 0/0
+ [33m⠋[0m Container php  Stopping                                                                                                                                                 [34m0.1s [0m
+[?25h[1A[1A[0G[?25l[+] Stopping 0/1
+ [33m⠙[0m Container php  Stopping                                                                                                                                                 [34m0.2s [0m
+[?25h[1A[1A[0G[?25l[+] Stopping 0/1
+ [33m⠹[0m Container php  Stopping                                                                                                                                                 [34m0.3s [0m
+[?25h[1A[1A[0G[?25l[+] Stopping 0/1
+ [33m⠸[0m Container php  Stopping                                                                                                                                                 [34m0.4s [0m
+[?25h[1A[1A[0G[?25l[+] Stopping 0/1
+ [33m⠼[0m Container php  Stopping                                                                                                                                                 [34m0.5s [0m
+[?25h

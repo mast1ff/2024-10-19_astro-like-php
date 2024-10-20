@@ -1,0 +1,99 @@
+---
+import * as fs from "node:fs";
+import * as path from "node:path";
+
+// 掲示板のサンプルプログラム
+// フォームに入力された内容をファイルに保存し、表示する
+
+// ファイル名
+const filename = "bbs.txt";
+const filepath = path.resolve("tmp", filename);
+
+// 投稿メッセージ
+let message = "";
+
+// ファイルを読み込む
+let file = "";
+if (!fs.existsSync(filepath)) {
+  // ファイルが存在しない場合
+  fs.writeFileSync(filepath, "", "utf-8");
+} else {
+  // ファイルが存在する場合
+  file = fs.readFileSync(filepath, "utf-8");
+}
+
+// フォームが送信されたとき
+if (Astro.request.method === "POST") {
+  // フォームの内容を取得
+  const payload = await Astro.request.formData();
+
+  // 最後の投稿番号を取得
+  const last = file.split("\n").length - 1;
+  // 投稿番号を指定
+  const number = last + 1;
+  // 投稿されたメッセージを取得
+  const body = payload.get("body");
+  // 投稿者名を取得
+  const name = payload.get("name");
+  // 投稿日時を取得 (YYYY-MM-DD HH:MM:SS)
+  const date = new Date()
+    .toISOString()
+    .replace("T", " ")
+    .replace(/\.\d+Z/, "");
+  // 書き込みデータを作成
+  const data = `${number} ${date} ${name} ${body}\n`;
+  // ファイルに書き込む
+  fs.appendFileSync(path.resolve("tmp", filename), data);
+  // 投稿めっせーじを設定
+  message = "投稿しました";
+}
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>掲示板</title>
+  </head>
+
+  <body>
+    <h1>掲示板</h1>
+    <form action="bbs.cgi" method="POST">
+      <label for="name">名前:</label>
+      <input type="text" name="name" id="name" /><br />
+      <label for="body">本文:</label>
+      <input type="text" name="body" id="body"></input>
+      <input type="submit" value="投稿" />
+    </form>
+
+    {message && (
+      <p>{message}</p>
+    )}
+
+
+    
+    {!file && (
+      <p>投稿はありません</p>
+    )}
+
+    {file && (
+      <h2>投稿一覧</h2>
+      <ul>
+        {file.split("\n").map((line) => {
+          const [number, date, name, body] = line.split(" ");
+          if (!number) {
+            return null;
+          }
+          return (
+            <li>
+              ID: {number}<br>
+              {date} {name}:<br>
+              {body}
+            </li>
+          );
+        })}
+      </ul>
+    )}
+    <p><a href="/">戻る</a></p>
+  </body>
+</html>

@@ -1,0 +1,34 @@
+---
+let message = "";
+if (Astro.request.method === "POST") {
+  const payload = await Astro.request.formData();
+  const username = payload.get("username");
+  console.log(username);
+  Astro.cookies.set("username", username!, { maxAge: 60 * 60 * 24 * 30 });
+  message = "Cookieを保存しました";
+}
+
+const username = Astro.cookies.get("username")?.value;
+---
+
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Cookie</title>
+  </head>
+
+  <body>
+    <h1>Cookie</h1>
+    <form action="cookie.cgi" method="post">
+      <label for="username">ユーザ名:</label>
+      <input type="text" name="username" id="username" />
+      <input type="submit" name="submit" value="保存" />
+    </form>
+
+    {message && <p>{message}</p>}
+    {username && <p>Cookieに保存されたユーザ名: {username}</p>}
+
+    <p><a href="/">戻る</a></p>
+  </body>
+</html>

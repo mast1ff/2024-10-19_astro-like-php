@@ -1,0 +1,6 @@
+{
+  "name": "php-on-apache",
+  "scripts": {
+    "dev": "docker-compose up"
+  }
+}
